@@ -1,79 +1,87 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Capsule React Native Starter Template
 
-# Getting Started
+This template provides a minimal setup to get Capsule working in a React Native application. It includes a basic Capsule client initialization and a simple "Hello World" component that displays the Capsule API key and environment.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Prerequisites
 
-## Step 1: Start the Metro Server
+- Node.js and npm (or yarn)
+- React Native development environment set up (including Xcode for iOS and Android Studio for Android)
+- CocoaPods (for iOS)
+- Capsule API key (obtain from [developer.usecapsule.com](https://developer.usecapsule.com))
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Getting Started
 
-To start Metro, run the following command from the _root_ of your React Native project:
+1. Copy this template folder to your project location and rename it:
 
-```bash
-# using npm
-npm start
+   ```
+   cp -r path/to/capsule-starter-templates/with-react-native my-capsule-project
+   cd my-capsule-project
+   ```
 
-# OR using Yarn
-yarn start
-```
+2. Rename the project in the following files:
 
-## Step 2: Start your Application
+   - `package.json`: Update the "name" field
+   - `app.json`: Update the "name" and "displayName" fields
+   - iOS: Update the project name in Xcode
+   - Android: Update `android/app/src/main/java/com/[your_project_name]/MainActivity.java`
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+3. Set up your Capsule API key:
 
-### For Android
+   - Rename `.env.example` to `.env`
+   - Open `.env` and replace `YOUR_CAPSULE_API_KEY` with your actual Capsule API key
 
-```bash
-# using npm
-npm run android
+4. Install dependencies:
 
-# OR using Yarn
-yarn android
-```
+   ```
+   yarn install
+   ```
 
-### For iOS
+5. For iOS, install CocoaPods dependencies:
 
-```bash
-# using npm
-npm run ios
+   ```
+   cd ios && pod install && cd ..
+   ```
 
-# OR using Yarn
-yarn ios
-```
+6. For Android, clean the project:
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+   ```
+   cd android && ./gradlew clean && cd ..
+   ```
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+7. Start the Metro bundler:
 
-## Step 3: Modifying your App
+   ```
+   yarn start
+   ```
 
-Now that you have successfully run the app, let's modify it.
+8. In a new terminal, run the app on your preferred platform:
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+   For iOS:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+   ```
+   yarn ios
+   ```
 
-## Congratulations! :tada:
+   For Android:
 
-You've successfully run and modified your React Native App. :partying_face:
+   ```
+   yarn android
+   ```
 
-### Now what?
+## What's Included
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+- Basic React Native project structure
+- Capsule client initialization
+- A simple component displaying Capsule client information
 
-# Troubleshooting
+## Next Steps
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- Build upon this template to implement Capsule features in your app
+- For detailed instructions on how to start using the Capsule client, refer to the official documentation:
+  [https://docs.usecapsule.com/getting-started/initial-setup/react-native](https://docs.usecapsule.com/getting-started/initial-setup/react-native)
+- For a complete example that integrates Capsule and demonstrates actual usage of the client and methods, check out:
+  [https://github.com/capsule-org/examples-hub/tree/main/mobile/with-react-native](https://github.com/capsule-org/examples-hub/tree/main/mobile/with-react-native)
 
-# Learn More
+## Support
 
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+For questions about Capsule integration, refer to the [Capsule documentation](https://docs.usecapsule.com) or open an issue in the main starter templates repository.
