@@ -6,9 +6,8 @@ Capsule client initialized.
 
 ## Available Templates
 
-- `with-react`
 - `with-react-native`
-- (Add other available templates here)
+- More Coming Soon!
 
 ## Template Structure
 
