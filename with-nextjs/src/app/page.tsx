@@ -1,9 +1,9 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { capsuleClient } from "@/client/capsule";
 import { CapsuleModal, OAuthMethod } from "@usecapsule/react-sdk";
 import "@usecapsule/react-sdk/styles.css";
-import Logo from "./capsul-logo.svg";
+import Logo from "./capsule-logo.svg";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
