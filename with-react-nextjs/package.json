@@ -1,0 +1,24 @@
+{
+  "name": "with-react-nextjs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@usecapsule/react-sdk": "4.4.4",
+    "next": "14.2.15",
+    "react": "^18",
+    "react-dom": "^18",
+    "wagmi": "2.12.25"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}
