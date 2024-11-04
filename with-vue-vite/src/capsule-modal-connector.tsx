@@ -11,30 +11,30 @@ export const createCapsuleModalConnector = (targetEl: HTMLElement, props: Capsul
     render: (isOpen: boolean) => {
       state.isOpen = isOpen;
       root.render(
-        <CapsuleModal
-          theme={{
+        React.createElement(CapsuleModal, {
+          theme: {
             backgroundColor: "#FFF",
             foregroundColor: "#000",
             accentColor: "#FF754A",
             mode: "light",
             font: "Inter",
             ...props.theme,
-          }}
-          capsule={props.capsule}
-          isOpen={isOpen}
-          onClose={() => {
+          },
+          capsule: props.capsule,
+          isOpen,
+          onClose: () => {
             state.isOpen = false;
             state.render(false);
             props.onClose();
-          }}
-          appName={props.appName || "Capsule Modal Example"}
-          logo={props.logo}
-          disableEmailLogin={props.disableEmailLogin}
-          disablePhoneLogin={props.disablePhoneLogin}
-          oAuthMethods={props.oAuthMethods || Object.values(OAuthMethod)}
-          onRampTestMode={props.onRampTestMode}
-          twoFactorAuthEnabled={props.twoFactorAuthEnabled}
-        />
+          },
+          appName: props.appName || "Capsule Modal Example",
+          logo: props.logo,
+          disableEmailLogin: props.disableEmailLogin,
+          disablePhoneLogin: props.disablePhoneLogin,
+          oAuthMethods: props.oAuthMethods || Object.values(OAuthMethod),
+          onRampTestMode: props.onRampTestMode,
+          twoFactorAuthEnabled: props.twoFactorAuthEnabled,
+        })
       );
     },
   };
