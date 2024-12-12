@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@tanstack/react-query": "5.60.2",
-    "@usecapsule/evm-wallet-connectors": "1.7.0",
-    "@usecapsule/react-sdk": "4.7.0",
+    "@usecapsule/evm-wallet-connectors": "1.11.0",
+    "@usecapsule/react-sdk": "4.11.0",
     "wagmi": "2.12.32",
     "next": "14.2.15",
     "react": "^18",

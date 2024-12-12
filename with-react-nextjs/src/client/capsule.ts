@@ -6,4 +6,4 @@ if (!CAPSULE_API_KEY) {
   throw new Error("CAPSULE_API_KEY is not set");
 }
 
-export const capsuleClient = new CapsuleWeb(Environment.BETA, CAPSULE_API_KEY);
+export const capsuleClient = new CapsuleWeb(Environment.SANDBOX, CAPSULE_API_KEY);
