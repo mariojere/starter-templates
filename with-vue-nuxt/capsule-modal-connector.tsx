@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { CapsuleModal, CapsuleModalProps, OAuthMethod } from "@usecapsule/react-sdk";
 import "@usecapsule/react-sdk/styles.css";
 
-export const createCapsuleModalConnector = (targetEl: HTMLElement, props: CapsuleModalProps) => {
+export const createCapsuleModalConnector = (targetEl: HTMLElement, props: Omit<CapsuleModalProps, "isOpen">) => {
   const root = createRoot(targetEl);
 
   const state = {

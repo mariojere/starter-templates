@@ -17,7 +17,6 @@
   import { OAuthMethod } from "@usecapsule/react-sdk";
 
   const modalConnector = ref<any>(null);
-  const modalContainer = ref<HTMLDivElement>();
 
   onMounted(() => {
     const container = document.createElement("div");

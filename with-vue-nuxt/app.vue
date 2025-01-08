@@ -18,7 +18,6 @@
   import "./style.css";
 
   const modalConnector = ref<any>(null);
-  const modalContainer = ref<HTMLDivElement>();
 
   onMounted(() => {
     const container = document.createElement("div");
