@@ -280,26 +280,27 @@
     "@babel/helper-string-parser" "^7.25.9"
     "@babel/helper-validator-identifier" "^7.25.9"
 
-"@celo/base@^6.0.1":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@celo/base/-/base-6.1.0.tgz#58a7a7cfb5d47bc9e680fe2e0eee58c234cb570b"
-  integrity sha512-R6ko2QCfEU32akBsaSNsDYduktgwIKHcJ61SbR7EsXA1VE31/44Qh8kMzfgeahyk375DUCe3pJIKwx5zg1tFHg==
+"@celo/base@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@celo/base/-/base-7.0.0.tgz#0b1a2bf5d513455d16d5a4543fe0a30389934601"
+  integrity sha512-/FQdvxGP32YX95wm66LFUcY/cNTRm9AT61gyQlvbLWDqxyOihygbBM1TBRL3SgDnCWRRnDKT6XPDcUXLm5dqWg==
 
-"@celo/utils@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@celo/utils/-/utils-6.0.1.tgz#07dea921cb091af20f9c37250bd1ad24b9e7e151"
-  integrity sha512-X9iK4R4USSgHG87PxpLGHqgKL33bKtBiKZGgPwx4gMM7X+nwpB6Ify/YO1/I+mt9+NN9epPb8/kmYYoWOPYShw==
+"@celo/utils@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@celo/utils/-/utils-8.0.0.tgz#4bd1ecf8699d34a8d0f511a38aaddf336e7f17c7"
+  integrity sha512-zxU24ZiFVeiqjSLn8AHW/cexHPpKWPSl7yXjcsloAG24KWNUHOVchxsm5Q3je9z8PHnlDHrMhODQFkdiAFWtPA==
   dependencies:
-    "@celo/base" "^6.0.1"
+    "@celo/base" "^7.0.0"
+    "@ethereumjs/rlp" "^5.0.2"
     "@ethereumjs/util" "8.0.5"
-    "@types/elliptic" "^6.4.9"
+    "@noble/ciphers" "0.4.1"
+    "@noble/curves" "1.3.0"
+    "@noble/hashes" "1.3.3"
+    "@types/bn.js" "^5.1.0"
     "@types/node" "^18.7.16"
     bignumber.js "^9.0.0"
-    elliptic "^6.5.4"
-    ethereum-cryptography "1.2.0"
     fp-ts "2.1.1"
     io-ts "2.0.1"
-    rlp "^2.2.4"
     web3-eth-abi "1.10.4"
     web3-utils "1.10.4"
 
@@ -717,6 +718,11 @@
   resolved "https://registry.yarnpkg.com/@ethereumjs/rlp/-/rlp-4.0.1.tgz#626fabfd9081baab3d0a3074b0c7ecaf674aaa41"
   integrity sha512-tqsQiBQDQdmPWE1xkkBq4rlSW5QZpLOUJ5RJh2/9fug+q9tnUhuZoVLk7s0scUIKTOzEtR72DFBXI4WiZcMpvw==
 
+"@ethereumjs/rlp@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@ethereumjs/rlp/-/rlp-5.0.2.tgz#c89bd82f2f3bec248ab2d517ae25f5bbc4aac842"
+  integrity sha512-DziebCdg4JpGlEqEdGgXmjqcFoJi+JGulUXwEjsZGAscAQ7MyD/7LE/GVCP29vEQxKc7AAwjT3A2ywHp2xfoCA==
+
 "@ethereumjs/util@8.0.5":
   version "8.0.5"
   resolved "https://registry.yarnpkg.com/@ethereumjs/util/-/util-8.0.5.tgz#b9088fc687cc13f0c1243d6133d145dfcf3fe446"
@@ -996,10 +1002,10 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@moonpay/moonpay-react@^1.8.0":
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/@moonpay/moonpay-react/-/moonpay-react-1.8.2.tgz#17161b448c629116ced2da45059f031dc204f861"
-  integrity sha512-zzG6y/Y41pCVoOu7So2qpINSediVSSN/T5xviOGTBlO874SAvTSVe/7G0aASdRVHP5lwd6NyBjSZZs1ODm/uCQ==
+"@moonpay/moonpay-react@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@moonpay/moonpay-react/-/moonpay-react-1.8.3.tgz#0cb372fb387db3993985bf492b68fc3b491e4cf0"
+  integrity sha512-kz0W0nt+tg4NZWGSVIN5nF3AYQttQF07UH8klrdVtfIg+Jg8GbxazlQDCvg8FX21KaEld1buBLBh0EfAGO7/sw==
 
 "@netlify/functions@^2.8.2":
   version "2.8.2"
@@ -1021,6 +1027,18 @@
     "@netlify/node-cookies" "^0.1.0"
     urlpattern-polyfill "8.0.2"
 
+"@noble/ciphers@0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@noble/ciphers/-/ciphers-0.4.1.tgz#977fc35f563a4ca315ebbc4cbb1f9b670bd54456"
+  integrity sha512-QCOA9cgf3Rc33owG0AYBB9wszz+Ul2kramWN8tXG44Gyciud/tbkEqvxRF/IpqQaBpRBNi9f4jdNxqB2CQCIXg==
+
+"@noble/curves@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-1.3.0.tgz#01be46da4fd195822dab821e72f71bf4aeec635e"
+  integrity sha512-t01iSXPuN+Eqzb4eBX0S5oubSqXbK/xXa1Ne18Hj8f9pStxztHCE2gfboSp/dZRLSqfuLpRK2nDXDK+W9puocA==
+  dependencies:
+    "@noble/hashes" "1.3.3"
+
 "@noble/curves@1.4.2", "@noble/curves@~1.4.0":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-1.4.2.tgz#40309198c76ed71bc6dbf7ba24e81ceb4d0d1fe9"
@@ -1032,6 +1050,11 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.2.0.tgz#a3150eeb09cc7ab207ebf6d7b9ad311a9bdbed12"
   integrity sha512-FZfhjEDbT5GRswV3C6uvLPHMiVD6lQBmpoX5+eSiPaMTXte/IKqI5dykDxzZB/WBeK/CDuQRBWarPdi3FNY2zQ==
+
+"@noble/hashes@1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.3.3.tgz#39908da56a4adc270147bb07968bf3b16cfe1699"
+  integrity sha512-V7/fPHgl+jsVPXqqeOzT8egNj2iBIVt+ECeMMG8TdcnTikP3oaBtUVqpT/gYCR68aEBJSF+XbYUxStjbFMqIIA==
 
 "@noble/hashes@1.4.0", "@noble/hashes@~1.4.0":
   version "1.4.0"
@@ -1664,19 +1687,12 @@
   dependencies:
     "@babel/types" "^7.20.7"
 
-"@types/bn.js@*", "@types/bn.js@^5.1.0":
+"@types/bn.js@^5.1.0":
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-5.1.6.tgz#9ba818eec0c85e4d3c679518428afdf611d03203"
   integrity sha512-Xh8vSwUeMKeYYrj3cX4lGQgFSF/N03r+tv4AiLl1SucqV+uTQpxRcnM8AkXKHwYP9ZPXOYXRr2KPXpVlIvqh9w==
   dependencies:
     "@types/node" "*"
-
-"@types/elliptic@^6.4.9":
-  version "6.4.18"
-  resolved "https://registry.yarnpkg.com/@types/elliptic/-/elliptic-6.4.18.tgz#bc96e26e1ccccbabe8b6f0e409c85898635482e1"
-  integrity sha512-UseG6H5vjRiNpQvrhy4VF/JXdA3V/Fp5amvveaL+fs28BZ6xIKJBPnUPRlEaZpysD9MbpfaLi8lbl7PGUAkpWw==
-  dependencies:
-    "@types/bn.js" "*"
 
 "@types/estree@*", "@types/estree@1.0.6", "@types/estree@^1.0.0":
   version "1.0.6"
@@ -1790,10 +1806,10 @@
     hookable "^5.5.3"
     unhead "1.11.11"
 
-"@usecapsule/core-components@3.12.0":
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/@usecapsule/core-components/-/core-components-3.12.0.tgz#5c162c22b7e0c9a014207407693921517cd65808"
-  integrity sha512-AXlQCfyXTQedzj0GgKsv2X2faG8YHT8fipD9H020FIUIVpF6ql7KtUXu5VIJDdzOIvyjzEo9MzGS830bqBNzHA==
+"@usecapsule/core-components@3.20.0":
+  version "3.20.0"
+  resolved "https://registry.yarnpkg.com/@usecapsule/core-components/-/core-components-3.20.0.tgz#88f5f699b8867b48d550c893d418583d71045e0b"
+  integrity sha512-CY0sjLgficeKzpBLlbnlTr0oKg0AxXtV76TuToMEoZfv/RjCxYUG4RdDVMk/hYXiOnL3IFGVFJdKIs25QvSYsg==
   dependencies:
     "@stencil/core" "^4.7.0"
     color-blend "^4.0.0"
@@ -1802,15 +1818,15 @@
     inputmask "5.0.9"
     qrcode-with-logos "1.1.1"
 
-"@usecapsule/core-sdk@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@usecapsule/core-sdk/-/core-sdk-2.7.0.tgz#da81a9d4d7ffd18dcc8bf6fd790f717772db3f36"
-  integrity sha512-dyRR7QRYimYAWgBxy8ocy7l5ZOwwYj7d1RmdSnRFtNCCnlyfUjm36ceJYGD4KI2fXv62i/qudQ/fLIqanoLRmA==
+"@usecapsule/core-sdk@2.15.0":
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/@usecapsule/core-sdk/-/core-sdk-2.15.0.tgz#793e5f1142a8eaa479458c58f92f4f18c34c041a"
+  integrity sha512-bojNKIcrcgau7KS2LHIue7Kfy/u0NI2jpxotiAUpGbQ1XlaLdH5201CkITHQcruwhW3NstUGnem5gmFZLst9UA==
   dependencies:
-    "@celo/utils" "^6.0.1"
+    "@celo/utils" "^8.0.0"
     "@cosmjs/encoding" "^0.32.4"
     "@noble/hashes" "^1.5.0"
-    "@usecapsule/user-management-client" "1.29.0"
+    "@usecapsule/user-management-client" "1.37.0"
     base64url "^3.0.1"
     buffer "6.0.3"
     ethereumjs-util "7.1.5"
@@ -1818,34 +1834,34 @@
     node-forge "^1.3.1"
     qs "^6.12.0"
 
-"@usecapsule/react-common@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@usecapsule/react-common/-/react-common-1.4.0.tgz#1814f09846a756a37f35fee7190fea8927ba60f5"
-  integrity sha512-I2jnUdcuOfM15J+wvfAZyILVTpxevBs2zOLRy3nyShp/q/DrpbPswmCcNzzFIXzem1tHf6mOU+kh50IRyS14Pg==
+"@usecapsule/react-common@1.12.0":
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@usecapsule/react-common/-/react-common-1.12.0.tgz#0b6d923d0ca47d7edc4be9cbfc4f96f2d8875acc"
+  integrity sha512-2F4YUR6mOD+K4Z8Cp04d4cqSYlvNsbZzYTdtriNsR3Vda8Xv9U5SWTGZKyPBTj44fp4a0+xJ0GBLD9UZ1h6jtg==
   dependencies:
-    "@moonpay/moonpay-react" "^1.8.0"
+    "@moonpay/moonpay-react" "^1.8.3"
     "@ramp-network/ramp-instant-sdk" "^4.0.5"
     "@stripe/crypto" "^0.0.4"
     "@stripe/stripe-js" "^3.4.0"
-    "@usecapsule/web-sdk" "2.7.0"
+    "@usecapsule/web-sdk" "2.15.0"
     libphonenumber-js "^1.11.1"
     styled-components "^6.1.8"
 
-"@usecapsule/react-components@3.12.0":
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/@usecapsule/react-components/-/react-components-3.12.0.tgz#f63a2c60144f7f12a370031f8e9faf83bd709502"
-  integrity sha512-JOxZsLuHLEO90H9ZpLFR0Hq0dz6BOOIhXCSWSYZ2jFGeTrIfK7RPRncdDn6wA9O8yu38R73fSomonlrGZLDBPA==
+"@usecapsule/react-components@3.20.0":
+  version "3.20.0"
+  resolved "https://registry.yarnpkg.com/@usecapsule/react-components/-/react-components-3.20.0.tgz#974612a9562e7c4b8355d43bc90c8d2f69bc2e7f"
+  integrity sha512-rBAkfdkCTIKW8zv1jk3GFJKPBYQYx/CgWb9ErjbkHWcYSs/PdFo4/co25if7zPXOu4vyQbzx4XDFw2uWVi9oIA==
   dependencies:
-    "@usecapsule/core-components" "3.12.0"
+    "@usecapsule/core-components" "3.20.0"
 
-"@usecapsule/react-sdk@4.7.0":
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/@usecapsule/react-sdk/-/react-sdk-4.7.0.tgz#b28be7efed259ec9ec5aca87dd8cb7b717f2a966"
-  integrity sha512-4bJyt++cSyDVikuDq3xqI89XMpj74BOLpV3uX5VU+fsz8RT/oxuict1/icjFzu74iYMBZ8wqWZK8aD+BKJ4pcA==
+"@usecapsule/react-sdk@4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@usecapsule/react-sdk/-/react-sdk-4.15.0.tgz#618d307e4ba2cf4eb3f08bf647c2aad0c71ca747"
+  integrity sha512-rCHj874siBNaH/f3SgX+3zszO82oLWJa3Ht2kzxhbO/DkEuel3FVkzl02SKHice6pVYTFlMq037mcDctsr8fPw==
   dependencies:
-    "@usecapsule/react-common" "1.4.0"
-    "@usecapsule/react-components" "3.12.0"
-    "@usecapsule/web-sdk" "2.7.0"
+    "@usecapsule/react-common" "1.12.0"
+    "@usecapsule/react-components" "3.20.0"
+    "@usecapsule/web-sdk" "2.15.0"
     date-fns "^3.6.0"
     detect-browser "^5.3.0"
     framer-motion "11.3.28"
@@ -1853,21 +1869,22 @@
     styled-components "^6.1.8"
     zustand "^4.5.2"
 
-"@usecapsule/user-management-client@1.29.0":
-  version "1.29.0"
-  resolved "https://registry.yarnpkg.com/@usecapsule/user-management-client/-/user-management-client-1.29.0.tgz#ccdb69c9c19db2c239e8906e5ef18ed7e7f45560"
-  integrity sha512-UYdkKLv2F0WS+gOCWgUbqef/cdTAp0LOw2oG9LKcIoEDMDSTeUuPXNvTUEigvEggkYRdqs9ENi59u0puT3fweQ==
+"@usecapsule/user-management-client@1.37.0":
+  version "1.37.0"
+  resolved "https://registry.yarnpkg.com/@usecapsule/user-management-client/-/user-management-client-1.37.0.tgz#192eb72929739f49d984146d19eaa6d129278445"
+  integrity sha512-RVaxVhGvlJj+pWZdQ/8V0vRZYMeSFJeTIiPJ11P1t8Ehf0FJeXEj+3/n98gMDMmZTNXYR5HLI8Y0paA34cFtFg==
   dependencies:
     axios "^1.6.3"
+    libphonenumber-js "1.11.2"
     qs "^6.12.0"
 
-"@usecapsule/web-sdk@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@usecapsule/web-sdk/-/web-sdk-2.7.0.tgz#20a86b44840805491f4f50573c11c73edc50b1a0"
-  integrity sha512-8A4q5GwZZ++BJxd//HXWxbioV4xsYjbPQnc0bVQaRjBo3ei0taqKBCtvzcQBEA4WAM/DJiKslA/UdWmlZJvo1Q==
+"@usecapsule/web-sdk@2.15.0":
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/@usecapsule/web-sdk/-/web-sdk-2.15.0.tgz#fa6c373f8cad6d1714407df3dfcddb759d32f233"
+  integrity sha512-0P7/TmPb0HJS9tehRzN6WcPyR0Gt2gN+e7MDWoTYaGwS70VcNaejAov5tQfeRqnnqC0fMzUm8aZy/ZQ0pC2vvg==
   dependencies:
-    "@usecapsule/core-sdk" "2.7.0"
-    "@usecapsule/user-management-client" "1.29.0"
+    "@usecapsule/core-sdk" "2.15.0"
+    "@usecapsule/user-management-client" "1.37.0"
     assert "^2.1.0"
     base64url "3.0.1"
     buffer "6.0.3"
@@ -3316,7 +3333,7 @@ elliptic@6.5.4:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
-elliptic@^6.5.3, elliptic@^6.5.4, elliptic@^6.5.5, elliptic@^6.5.7:
+elliptic@^6.5.3, elliptic@^6.5.5, elliptic@^6.5.7:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.6.0.tgz#5919ec723286c1edf28685aa89261d4761afa210"
   integrity sha512-dpwoQcLc/2WLQvJvLRHKZ+f9FgOdjnq11rurqwekGQygGPsYSK29OMMD2WalatiqQ+XGFDglTNixpPfI+lpaAA==
@@ -3512,16 +3529,6 @@ ethereum-bloom-filters@^1.0.6:
   dependencies:
     "@noble/hashes" "^1.4.0"
 
-ethereum-cryptography@1.2.0, ethereum-cryptography@^1.1.2:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ethereum-cryptography/-/ethereum-cryptography-1.2.0.tgz#5ccfa183e85fdaf9f9b299a79430c044268c9b3a"
-  integrity sha512-6yFQC9b5ug6/17CQpCyE3k9eKBMdhyVjzUy1WkiuY/E4vj/SXDBbCw8QEIaXqf0Mf2SnY6RmpDcwlUmBSS0EJw==
-  dependencies:
-    "@noble/hashes" "1.2.0"
-    "@noble/secp256k1" "1.7.1"
-    "@scure/bip32" "1.1.5"
-    "@scure/bip39" "1.1.1"
-
 ethereum-cryptography@^0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/ethereum-cryptography/-/ethereum-cryptography-0.1.3.tgz#8d6143cfc3d74bf79bbd8edecdf29e4ae20dd191"
@@ -3542,6 +3549,16 @@ ethereum-cryptography@^0.1.3:
     scrypt-js "^3.0.0"
     secp256k1 "^4.0.1"
     setimmediate "^1.0.5"
+
+ethereum-cryptography@^1.1.2:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ethereum-cryptography/-/ethereum-cryptography-1.2.0.tgz#5ccfa183e85fdaf9f9b299a79430c044268c9b3a"
+  integrity sha512-6yFQC9b5ug6/17CQpCyE3k9eKBMdhyVjzUy1WkiuY/E4vj/SXDBbCw8QEIaXqf0Mf2SnY6RmpDcwlUmBSS0EJw==
+  dependencies:
+    "@noble/hashes" "1.2.0"
+    "@noble/secp256k1" "1.7.1"
+    "@scure/bip32" "1.1.5"
+    "@scure/bip39" "1.1.1"
 
 ethereum-cryptography@^2.0.0, ethereum-cryptography@^2.1.2:
   version "2.2.1"
