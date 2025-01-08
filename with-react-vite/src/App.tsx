@@ -1,4 +1,4 @@
-import { AuthLayout, CapsuleModal, ExternalWallet, OAuthMethod } from "@usecapsule/react-sdk";
+import { AuthLayout, CapsuleModal, OAuthMethod } from "@usecapsule/react-sdk";
 import "@usecapsule/react-sdk/styles.css";
 import { useState } from "react";
 
@@ -18,11 +18,10 @@ export default function Home() {
       </button>
       <CapsuleModal
         appName="Capsule Modal Starter Template"
-        authLayout={[AuthLayout.AUTH_FULL, AuthLayout.EXTERNAL_CONDENSED]}
+        authLayout={[AuthLayout.AUTH_FULL]}
         capsule={capsuleClient}
         disableEmailLogin={false}
         disablePhoneLogin={false}
-        externalWallets={[ExternalWallet.METAMASK, ExternalWallet.WALLETCONNECT, ExternalWallet.RAINBOW]}
         isOpen={isModalOpen}
         logo={Logo}
         oAuthMethods={Object.values(OAuthMethod)}
