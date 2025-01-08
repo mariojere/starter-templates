@@ -1,0 +1,47 @@
+name: Bump @usecapsule/react-sdk
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install npm-check-updates
+        run: npm install -g npm-check-updates
+
+      - name: Bump dependency
+        run: |
+          find . -name "package.json" | xargs -I '{}' ncu -f @usecapsule/react-sdk -u '{}'
+          if [ -z "$(git status --porcelain)" ]; then
+            exit 0
+          fi
+
+      - name: Commit changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b chore/bump-react-sdk
+          git add .
+          git commit -m "chore: bump @usecapsule/react-sdk"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: chore/bump-react-sdk
+          commit-message: "chore: bump @usecapsule/react-sdk"
+          title: "chore: Bump @usecapsule/react-sdk"
+          body: "Auto-generated bump for @usecapsule/react-sdk."
+          base: main
+          labels: dependencies
+          auto-merge: true
+          merge-method: squash
