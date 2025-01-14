@@ -15,10 +15,8 @@ export default function Home() {
     try {
       const isLoggedIn = await capsuleClient.isFullyLoggedIn();
       if (isLoggedIn) {
-        console.log("User is fully logged in");
         setIsLoggedIn(true); // Trigger a re-render when the user is logged in
       } else {
-        console.log("User is not fully logged in");
         setIsLoggedIn(false); // Ensure state is updated appropriately
       }
     } catch (error) {
@@ -29,10 +27,10 @@ export default function Home() {
   // useEffect to check login status on component mount
   useEffect(() => {
     checkLoginStatus();
-  }, [isLoggedIn]);
+  }, [isLoggedIn,capsuleClient]);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div className="mt-10 m-6 space-y-6 text-center">
       <h1>Capsule Modal + Safe</h1>
   
       <button
@@ -43,7 +41,7 @@ export default function Home() {
         {isLoggedIn ? (
         <p> Open Capsule Modal</p>
       ) : (
-        <p>log into your account</p>
+        <p>Log Into Your Account</p>
       )}
       </button>
       <CapsuleModal
