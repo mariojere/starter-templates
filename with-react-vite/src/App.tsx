@@ -29,21 +29,22 @@ export default function Home() {
   // useEffect to check login status on component mount
   useEffect(() => {
     checkLoginStatus();
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>Capsule Modal + Safe</h1>
-      {isLoggedIn ? (
-        <p>Welcome back! You are fully logged in.</p>
-      ) : (
-        <p>Please log in to continue.</p>
-      )}
+  
       <button
         onClick={() => setIsModalOpen(true)}
         style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
       >
-        Open Capsule Modal
+       
+        {isLoggedIn ? (
+        <p> Open Capsule Modal</p>
+      ) : (
+        <p>log into your account</p>
+      )}
       </button>
       <CapsuleModal
         appName="Capsule Modal Starter Template"
