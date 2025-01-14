@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { capsuleClient } from "./client/capsule";
 import Logo from "./assets/capsule-logo.svg";
+import SignWithSafe from "./with-safe";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,6 +30,10 @@ export default function Home() {
         onRampTestMode={true}
         twoFactorAuthEnabled={false}
       />
+
+      <SignWithSafe/>
     </div>
   );
 }
+
+
