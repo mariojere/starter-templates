@@ -1,9 +1,9 @@
 import React from "react";
 import { Plus, Trash2, Loader2 } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../../demo-ui/components/card";
-import { Input } from "../../demo-ui/components/input";
-import { Button } from "../../demo-ui/components/button";
-import { Alert, AlertDescription } from "../../demo-ui/components/alert";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./card";
+import { Button } from "./button";
+import { Alert, AlertDescription } from "./alert";
+import { Input } from "./input";
 
 export type UserOp = {
   value: string;

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../demo-ui/components/card";
-import { Button } from "../../demo-ui/components/button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./card";
+import { Button } from "./button";
 import { LoadingState } from "./loader";
 import SuccessMessage from "./success-message";
 

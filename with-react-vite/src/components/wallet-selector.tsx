@@ -1,6 +1,6 @@
 import React from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../demo-ui/components/dialog";
-import { Button } from "../../demo-ui/components/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./dialog";
+import { Button } from ".//button";
 import { X } from "lucide-react";
 
 interface WalletOption {
