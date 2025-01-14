@@ -27,7 +27,7 @@ const useTransactionManager = () => {
     };
 
     fetchFromAddress();
-  }, []);
+  }, [capsuleClient]);
 
   // Reset form state
   const resetForm = () => {
