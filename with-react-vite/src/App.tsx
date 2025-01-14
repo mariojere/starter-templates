@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Capsule Modal Starter Template with Next.js</h1>
+      <h1>Capsule Modal + Safe</h1>
       <button
         onClick={() => setIsModalOpen(true)}
         style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}>
