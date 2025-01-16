@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createCapsuleViemClient } from "@usecapsule/viem-v2-integration";
 import { sepolia } from "viem/chains";
 import { http, parseEther } from "viem";
-import Safe, { EthersAdapter } from "@safe-global/protocol-kit";
+import Safe, { EthersAdapter, PredictedSafeProps, SafeAccountConfig } from "@safe-global/protocol-kit";
 import useTransactionManager from "../../hooks/useTransactionManager";
 import { capsuleClient } from "../../client/capsule";
 import TransactionForm from "../../components/transaction-form";
@@ -48,8 +48,15 @@ const SignWithSafe: React.FC = () => {
       });
       console.log("Capsule Viem client created:", capsuleViemClient);
 
-      const safeAddress = await capsuleViemClient.account.address;
-      console.log("Safe address retrieved:", safeAddress);
+      // const safeAddress = await capsuleViemClient.account.address;
+      
+
+      const safeAccountConfig: SafeAccountConfig = {
+        owners: [await capsuleViemClient.account.address],
+        threshold: 1,
+      };
+
+      console.log("Safe address retrieved:", safeAccountConfig.owners);
 
       const ethAdapter = new EthersAdapter({
         ethers: capsuleViemClient,
@@ -57,10 +64,12 @@ const SignWithSafe: React.FC = () => {
       });
       console.log("Ethereum adapter created:", ethAdapter);
 
-      const safeSdk = await Safe.create({
-        ethAdapter,
-        safeAddress,
-      });
+      const predictedSafe: PredictedSafeProps = {
+        safeAccountConfig
+      }
+
+      const safeSdk = await Safe.create( {ethAdapter,predictedSafe});
+      
       console.log("Safe SDK initialized:", safeSdk);
 
       const safeTransactions = transactions.map((tx) => ({
@@ -68,6 +77,7 @@ const SignWithSafe: React.FC = () => {
         value: parseEther(tx.value.toString()).toString(),
         data: tx.data ? tx.data.toString() : "0x",
       }));
+
       console.log("Safe transactions mapped:", safeTransactions);
 
       const safeTransaction = await safeSdk.createTransaction({
