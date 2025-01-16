@@ -2,19 +2,16 @@ import { useState } from "react";
 import { createCapsuleViemClient } from "@usecapsule/viem-v2-integration";
 import { sepolia } from "viem/chains";
 import { http, parseEther } from "viem";
-import Safe, { EthersAdapter, PredictedSafeProps, SafeAccountConfig } from "@safe-global/protocol-kit";
+import Safe, { PredictedSafeProps, SafeAccountConfig } from "@safe-global/protocol-kit";
 import useTransactionManager from "../../hooks/useTransactionManager";
 import { capsuleClient } from "../../client/capsule";
 import TransactionForm from "../../components/transaction-form";
 
-// Define the structure of a transaction
 interface Transaction {
-  to: string; // Recipient address
-  value: string; // Amount to send
-  data: number | string; // Transaction data (optional, defaults to '0x')
+  to: string;
+  value: string;
 }
 
-// Main functional component
 const SignWithSafe: React.FC = () => {
   const {
     fromAddress,
@@ -38,104 +35,119 @@ const SignWithSafe: React.FC = () => {
     capsule: any, // Capsule client instance
     transactions: Transaction[] // List of transactions to execute
   ) => {
-    const RPC_URL = "https://ethereum-sepolia-rpc.publicnode.com";
-    console.log("Performing batch transaction with transactions:", transactions);
+    const RPC_URL = "https://eth-sepolia.g.alchemy.com/v2/JI22rKRHyoqhFLiTBjhB1LFZz8zXWzXI";
+    console.log("Starting batch transaction process.");
 
     try {
       const capsuleViemClient: any = createCapsuleViemClient(capsule, {
         chain: sepolia,
         transport: http(RPC_URL),
       });
-      console.log("Capsule Viem client created:", capsuleViemClient);
+      console.log("Capsule Viem client initialized successfully.");
 
-      // const safeAddress = await capsuleViemClient.account.address;
-      
-
+      // Configure Safe
       const safeAccountConfig: SafeAccountConfig = {
         owners: [await capsuleViemClient.account.address],
         threshold: 1,
       };
 
-      console.log("Safe address retrieved:", safeAccountConfig.owners);
-
-      const ethAdapter = new EthersAdapter({
-        ethers: capsuleViemClient,
-        signerOrProvider: capsuleViemClient.account,
-      });
-      console.log("Ethereum adapter created:", ethAdapter);
+      console.log("Safe account configuration prepared:", safeAccountConfig);
 
       const predictedSafe: PredictedSafeProps = {
-        safeAccountConfig
+        safeAccountConfig,
+      };
+
+      // Initialize Safe Protocol Kit
+      let protocolKit = await Safe.init({
+        provider: RPC_URL,
+        signer: capsuleViemClient.account.address,
+        predictedSafe,
+      });
+
+      console.log("Safe Protocol Kit initialized.");
+
+      const safeAddress = await protocolKit.getAddress();
+      console.log("Predicted Safe address:", safeAddress);
+
+      // Check if the Safe contract is already deployed
+      const isDeployed = await protocolKit.isSafeDeployed();
+      console.log("Safe deployment status:", isDeployed);
+
+      if (!isDeployed) {
+        console.log("Safe is not deployed. Creating deployment transaction.");
+
+        const deploymentTransaction = await protocolKit.createSafeDeploymentTransaction();
+        console.log("Safe deployment transaction created:", deploymentTransaction);
+
+        const txHash = await capsuleViemClient?.sendTransaction({
+          to: deploymentTransaction.to as `0x${string}`,
+          value: BigInt(deploymentTransaction.value),
+          data: deploymentTransaction.data as `0x${string}`,
+          chain: sepolia,
+        });
+
+        console.log("Deployment transaction sent. Transaction hash:", txHash);
+
+        const txReceipt = await capsuleViemClient?.waitForTransactionReceipt({ hash: txHash });
+        console.log("Deployment transaction receipt:", txReceipt);
+      } else {
+        console.log("Safe is already deployed. Skipping deployment.");
       }
 
-      const safeSdk = await Safe.create( {ethAdapter,predictedSafe});
-      
-      console.log("Safe SDK initialized:", safeSdk);
+      // Reconnect Protocol Kit to the deployed Safe
+      protocolKit = await protocolKit.connect({ safeAddress });
+      console.log("Reconnected Protocol Kit to the deployed Safe.");
 
-      const safeTransactions = transactions.map((tx) => ({
+      // Prepare and send batch transactions
+      const transactionPayloads = transactions.map((tx) => ({
+        account: safeAddress,
         to: tx.to,
-        value: parseEther(tx.value.toString()).toString(),
-        data: tx.data ? tx.data.toString() : "0x",
+        value: parseEther(tx.value).toString(),
       }));
 
-      console.log("Safe transactions mapped:", safeTransactions);
+      console.log("Transaction payloads prepared:", transactionPayloads);
 
-      const safeTransaction = await safeSdk.createTransaction({
-        safeTransactionData: safeTransactions,
-      });
-      console.log("Safe transaction created:", safeTransaction);
-
-      const safeTxHash = await safeSdk.getTransactionHash(safeTransaction);
-      console.log("Transaction hash retrieved:", safeTxHash);
-
-      const senderSignature = await safeSdk.signTransactionHash(safeTxHash);
-      console.log("Transaction hash signed:", senderSignature);
-
-      safeTransaction.addSignature(senderSignature);
-      console.log("Signature added to transaction:", safeTransaction);
-
-      const executionResponse = await safeSdk.executeTransaction(safeTransaction);
-      console.log("Transaction executed, response:", executionResponse);
-
-      return executionResponse;
+      const transaction = await capsuleViemClient.sendTransaction(transactionPayloads);
+      console.log("Batch transaction sent successfully:", transaction);
     } catch (error) {
-      console.error("Safe transaction error:", error);
+      console.error("Error during batch transaction process:", error);
       throw error;
     }
   };
 
   // Function to handle the transaction process
   const handleTransaction = async () => {
-    console.log("Handling transaction...");
+    console.log("Handling transaction form submission.");
+
     try {
-      const newTransaction: Transaction = {
+      setIsLoading(true);
+      console.log("Transaction process started. Loading state set to true.");
+
+      const newTransaction = {
         to: recipient,
         value: amount,
-        data: "0x",
       };
+
       console.log("New transaction created:", newTransaction);
 
-      setTransactions([newTransaction]);
-      console.log("Transactions state updated:", transactions);
+      const updatedTransactions = [...transactions, newTransaction];
+      setTransactions(updatedTransactions);
+      console.log("Transactions state updated:", updatedTransactions);
 
-      setIsLoading(true);
-      console.log("Transaction process started, loading state set to true.");
+      await performBatchTransaction(capsuleClient, updatedTransactions);
+      console.log("Batch transaction completed successfully.");
 
-      const response = await performBatchTransaction(capsuleClient, transactions);
-      console.log("Batch transaction response:", response);
-
-      setSignatureResult(response.hash || "Transaction executed");
-      console.log("Signature result updated:", response.hash || "Transaction executed");
+      setSignatureResult("Batch transaction executed successfully.");
+      console.log("Signature result updated.");
     } catch (err: any) {
-      console.error("Transaction error:", err);
-      setError(err.message || "Failed to execute transaction");
+      console.error("Error during transaction handling:", err);
+      setError(err.message || "Failed to execute transaction.");
     } finally {
       setIsLoading(false);
-      console.log("Transaction process completed, loading state set to false.");
+      console.log("Transaction process completed. Loading state set to false.");
     }
   };
 
-  // Return JSX to render the transaction form and associated UI
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <TransactionForm
@@ -143,17 +155,19 @@ const SignWithSafe: React.FC = () => {
         recipient={recipient}
         amount={amount}
         onRecipientChange={(value) => {
-          console.log("Recipient updated:", value);
+          console.log("Recipient input updated:", value);
           setRecipient(value);
         }}
         onAmountChange={(value) => {
-          console.log("Amount updated:", value);
+          console.log("Amount input updated:", value);
           setAmount(value);
         }}
         onSign={handleTransaction}
         onReset={() => {
-          console.log("Form reset triggered.");
+          console.log("Resetting form.");
           resetForm();
+          setTransactions([]); // Reset transactions state
+          console.log("Transactions state reset.");
         }}
         isLoading={isLoading}
         error={error}
