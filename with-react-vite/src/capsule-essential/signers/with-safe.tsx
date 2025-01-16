@@ -9,136 +9,148 @@ import TransactionForm from "../../components/transaction-form";
 
 // Define the structure of a transaction
 interface Transaction {
-    to: string; // Recipient address
-    value: string; // Amount to send
-    data: number | string; // Transaction data (optional, defaults to '0x')
+  to: string; // Recipient address
+  value: string; // Amount to send
+  data: number | string; // Transaction data (optional, defaults to '0x')
 }
 
 // Main functional component
 const SignWithSafe: React.FC = () => {
-    // Destructure state management hooks from the custom useTransactionManager hook
-    const {
-        fromAddress,
-        recipient,
-        amount,
-        error,
-        isLoading,
-        signatureResult,
-        setError,
-        setRecipient,
-        setAmount,
-        setIsLoading,
-        setSignatureResult,
-        resetForm,
-    } = useTransactionManager();
+  const {
+    fromAddress,
+    recipient,
+    amount,
+    error,
+    isLoading,
+    signatureResult,
+    setError,
+    setRecipient,
+    setAmount,
+    setIsLoading,
+    setSignatureResult,
+    resetForm,
+  } = useTransactionManager();
 
-    // State to hold an array of transactions
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-    // Function to perform a batch transaction using Safe
-    const performBatchTransaction = async (
-        capsule: any, // Capsule client instance
-        transactions: Transaction[] // List of transactions to execute
-    ) => {
-        const RPC_URL = "https://ethereum-sepolia-rpc.publicnode.com"; // RPC URL for Sepolia testnet
+  // Function to perform a batch transaction using Safe
+  const performBatchTransaction = async (
+    capsule: any, // Capsule client instance
+    transactions: Transaction[] // List of transactions to execute
+  ) => {
+    const RPC_URL = "https://ethereum-sepolia-rpc.publicnode.com";
+    console.log("Performing batch transaction with transactions:", transactions);
 
-        try {
-            // Create a Capsule Viem client with the given chain and RPC transport
-            const capsuleViemClient: any = createCapsuleViemClient(capsule, {
-                chain: sepolia,
-                transport: http(RPC_URL),
-            });
+    try {
+      const capsuleViemClient: any = createCapsuleViemClient(capsule, {
+        chain: sepolia,
+        transport: http(RPC_URL),
+      });
+      console.log("Capsule Viem client created:", capsuleViemClient);
 
-            // Retrieve the Safe address associated with the current Capsule account
-            const safeAddress = await capsuleViemClient.account.address;
+      const safeAddress = await capsuleViemClient.account.address;
+      console.log("Safe address retrieved:", safeAddress);
 
-            // Create an Ethereum adapter for Safe SDK
-            const ethAdapter = new EthersAdapter({
-                ethers: capsuleViemClient,
-                signerOrProvider: capsuleViemClient.account,
-            });
+      const ethAdapter = new EthersAdapter({
+        ethers: capsuleViemClient,
+        signerOrProvider: capsuleViemClient.account,
+      });
+      console.log("Ethereum adapter created:", ethAdapter);
 
-            // Initialize Safe SDK with the adapter and Safe address
-            const safeSdk = await Safe.create({
-                ethAdapter,
-                safeAddress,
-            });
+      const safeSdk = await Safe.create({
+        ethAdapter,
+        safeAddress,
+      });
+      console.log("Safe SDK initialized:", safeSdk);
 
-            // Map each transaction into the Safe's transaction format
-            const safeTransactions = transactions.map(tx => ({
-                to: tx.to,
-                value: parseEther(tx.value.toString()).toString(), // Convert value to wei
-                data: tx.data ? tx.data.toString() : '0x', // Default to '0x' if no data is provided
-            }));
+      const safeTransactions = transactions.map((tx) => ({
+        to: tx.to,
+        value: parseEther(tx.value.toString()).toString(),
+        data: tx.data ? tx.data.toString() : "0x",
+      }));
+      console.log("Safe transactions mapped:", safeTransactions);
 
-            // Create a batch transaction with the Safe SDK
-            const safeTransaction = await safeSdk.createTransaction({
-                safeTransactionData: safeTransactions,
-            });
+      const safeTransaction = await safeSdk.createTransaction({
+        safeTransactionData: safeTransactions,
+      });
+      console.log("Safe transaction created:", safeTransaction);
 
-            // Get the hash of the Safe transaction
-            const safeTxHash = await safeSdk.getTransactionHash(safeTransaction);
+      const safeTxHash = await safeSdk.getTransactionHash(safeTransaction);
+      console.log("Transaction hash retrieved:", safeTxHash);
 
-            // Sign the transaction hash with the current user's signature
-            const senderSignature = await safeSdk.signTransactionHash(safeTxHash);
-            safeTransaction.addSignature(senderSignature); // Add the signature to the transaction
+      const senderSignature = await safeSdk.signTransactionHash(safeTxHash);
+      console.log("Transaction hash signed:", senderSignature);
 
-            // Execute the transaction on the Safe
-            const executionResponse = await safeSdk.executeTransaction(safeTransaction);
+      safeTransaction.addSignature(senderSignature);
+      console.log("Signature added to transaction:", safeTransaction);
 
-            return executionResponse; // Return the response for further handling
-        } catch (error) {
-            console.error('Safe transaction error:', error);
-            throw error; // Re-throw the error to handle it in the calling function
-        }
-    };
+      const executionResponse = await safeSdk.executeTransaction(safeTransaction);
+      console.log("Transaction executed, response:", executionResponse);
 
-    // Function to handle the transaction process
-    const handleTransaction = async () => {
-        try {
-            // Create a new transaction based on the input values
-            const newTransaction: Transaction = {
-                to: recipient, // Recipient address from input
-                value: amount, // Amount from input
-                data: '0x', // Default transaction data
-            };
+      return executionResponse;
+    } catch (error) {
+      console.error("Safe transaction error:", error);
+      throw error;
+    }
+  };
 
-            // Update the transactions state with the new transaction
-            setTransactions([newTransaction]);
+  // Function to handle the transaction process
+  const handleTransaction = async () => {
+    console.log("Handling transaction...");
+    try {
+      const newTransaction: Transaction = {
+        to: recipient,
+        value: amount,
+        data: "0x",
+      };
+      console.log("New transaction created:", newTransaction);
 
-            setIsLoading(true); // Indicate that the transaction process is in progress
+      setTransactions([newTransaction]);
+      console.log("Transactions state updated:", transactions);
 
-            // Call the performBatchTransaction function and handle the response
-            const response = await performBatchTransaction(capsuleClient, transactions);
+      setIsLoading(true);
+      console.log("Transaction process started, loading state set to true.");
 
-            // Update the signature result with the transaction hash
-            setSignatureResult(response.hash || 'Transaction executed');
-        } catch (err: any) {
-            console.error('Transaction error:', err);
-            setError(err.message || 'Failed to execute transaction'); // Set an error message if something goes wrong
-        } finally {
-            setIsLoading(false); // Ensure loading state is cleared regardless of success or failure
-        }
-    };
+      const response = await performBatchTransaction(capsuleClient, transactions);
+      console.log("Batch transaction response:", response);
 
-    // Return JSX to render the transaction form and associated UI
-    return (
-        <div className="flex flex-col items-center justify-center h-full">
-            {/* Transaction Form component for user inputs */}
-            <TransactionForm
-                fromAddress={fromAddress} // Sender address
-                recipient={recipient} // Recipient address
-                amount={amount} // Amount to send
-                onRecipientChange={setRecipient} // Update recipient state
-                onAmountChange={setAmount} // Update amount state
-                onSign={handleTransaction} // Trigger transaction handling
-                onReset={resetForm} // Reset the form inputs
-                isLoading={isLoading} // Loading state for UI feedback
-                error={error} // Error state for UI feedback
-                signatureResult={signatureResult} // Display transaction result
-            />
-        </div>
-    );
+      setSignatureResult(response.hash || "Transaction executed");
+      console.log("Signature result updated:", response.hash || "Transaction executed");
+    } catch (err: any) {
+      console.error("Transaction error:", err);
+      setError(err.message || "Failed to execute transaction");
+    } finally {
+      setIsLoading(false);
+      console.log("Transaction process completed, loading state set to false.");
+    }
+  };
+
+  // Return JSX to render the transaction form and associated UI
+  return (
+    <div className="flex flex-col items-center justify-center h-full">
+      <TransactionForm
+        fromAddress={fromAddress}
+        recipient={recipient}
+        amount={amount}
+        onRecipientChange={(value) => {
+          console.log("Recipient updated:", value);
+          setRecipient(value);
+        }}
+        onAmountChange={(value) => {
+          console.log("Amount updated:", value);
+          setAmount(value);
+        }}
+        onSign={handleTransaction}
+        onReset={() => {
+          console.log("Form reset triggered.");
+          resetForm();
+        }}
+        isLoading={isLoading}
+        error={error}
+        signatureResult={signatureResult}
+      />
+    </div>
+  );
 };
 
 export default SignWithSafe;
